@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     InputManager inputManager;
     ButtonLogic buttonLogic;
     Animator animator;
+    Powerup powerup;
 
     public GameObject CutsceneCam;
 
@@ -33,6 +34,8 @@ public class PlayerController : MonoBehaviour
         buttonLogic = FindObjectOfType<ButtonLogic>();
         CutsceneCam = GameObject.Find("CutsceneCam");
         CutsceneCam.SetActive(false);
+
+        powerup = FindObjectOfType<Powerup>();
     }
 
     private void Update()
@@ -146,15 +149,15 @@ public class PlayerController : MonoBehaviour
             playerRB.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
         }
 
-/*        if (powerup.aquired == true)
-        {*/
+        if (powerup.aquired == true)
+        {
             if (inputManager.jumpInput && jumps == 1)
             {
                 animator.Play("Base Layer.JumpFlip", 0, 0.25f);
                 playerRB.AddForce(new Vector3(0, jump / 1.5f, 0), ForceMode.Impulse);
                 jumps++;
             }
-/*        }*/
+        }
     }
 
         private void OnCollisionStay(Collision collision)
@@ -166,6 +169,7 @@ public class PlayerController : MonoBehaviour
             jumps = 0;
         }
     }
+
     private void OnCollisionExit(Collision collision)
     {
         onGround = false;

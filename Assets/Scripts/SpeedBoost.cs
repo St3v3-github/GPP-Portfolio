@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpeedBoost : MonoBehaviour
 {
-    public float multiplier = 2;
+    public float multiplier = 2f;
     public float waitTime = 2f;
 
     private void OnTriggerEnter(Collider other)
@@ -18,16 +18,16 @@ public class SpeedBoost : MonoBehaviour
 
     IEnumerator Pickup(Collider player) 
     {
-       PlayerMotion playerMotion =  player.GetComponent<PlayerMotion>();
-        playerMotion.runSpeed *= multiplier;
-        playerMotion.sprintSpeed *= multiplier;
+       PlayerController playerController =  player.GetComponent<PlayerController>();
+        playerController.runSpeed *= multiplier;
+        //playerController.sprintSpeed *= multiplier;
 
         gameObject.transform.position = new Vector3(0, -50, 0);
 
         yield return new WaitForSeconds(waitTime);
 
-        playerMotion.runSpeed /= multiplier;
-        playerMotion.sprintSpeed /= multiplier;
+        playerController.runSpeed /= multiplier;
+        //playerController.sprintSpeed /= multiplier;
 
         Destroy(gameObject);
     }

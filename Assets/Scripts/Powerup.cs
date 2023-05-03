@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    public float multiplier = 1.4f;
     public float waitTime = 2f;
-
     public bool aquired = false;
 
     private void OnTriggerEnter(Collider other)
@@ -26,7 +24,7 @@ public class Powerup : MonoBehaviour
 
         aquired = true;
        
-        gameObject.transform.position = new Vector3(0, -50, 0);
+        gameObject.transform.position = new Vector3(0, -500, 0);
 
         yield return new WaitForSeconds(waitTime);
 
