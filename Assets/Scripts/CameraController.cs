@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
     InputManager inputManager;
+    SplineManager splineManager;
+
+    public Transform lockOnTargetTransform;
 
     public Transform targetTransform;       //Object camera follows
     public Transform cameraPivot;             //Object camera pivots on
@@ -32,6 +37,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         inputManager = FindObjectOfType<InputManager>();
+        splineManager = FindObjectOfType<SplineManager>();
         defaultPosition = cameraTransform.localPosition.z;
     }
 
@@ -42,9 +48,32 @@ public class CameraController : MonoBehaviour
 
     public void HandleAllCameraMovement()
     {
-        FollowTarget();
-        RotateCamera();
-        HandleCameraCollisions();
+        if (inputManager.lockOnInput)
+        {
+            FollowTarget();
+            HandleCameraCollisions();
+            LockOnCamRules();
+
+            //transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
+
+        else if (splineManager.InBox)
+        {
+            splineRules();
+            cameraPivot.localRotation = Quaternion.Euler(Vector3.zero);
+        }
+
+/*        else if (//cutscene)
+        {
+
+        }*/
+
+        else
+        {
+            FollowTarget();
+            RotateCamera();
+            HandleCameraCollisions();
+        }
     }
 
     private void FollowTarget()
@@ -98,18 +127,17 @@ public class CameraController : MonoBehaviour
         cameraTransform.localPosition = cameraVectorPosition;
     }
 
-/*    private void splineRules()
+    private void LockOnCamRules()
+    {
+        Vector3 lookAtPosition = lockOnTargetTransform.position + transform.up * 1.8f;
+        var targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5 * Time.deltaTime);
+    }
+
+    private void splineRules()
     {
         Vector3 lookAtPosition = targetTransform.position + transform.up * 1.8f;
         var targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5 * Time.deltaTime);
     }
-*/
-/*    private void lockOnRules()
-    {
-        Vector3 lookAtPosition = (Target)transform.position + transform.up * 1.8f;
-        var targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5 * Time.deltaTime);
-    }*/
-
 }

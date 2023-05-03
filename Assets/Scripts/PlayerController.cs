@@ -7,6 +7,9 @@ using UnityEngine.Experimental.AI;
 public class PlayerController : MonoBehaviour
 {
     InputManager inputManager;
+    ButtonLogic buttonLogic;
+
+    public GameObject CutsceneCam;
 
     public Vector3 moveDirection;
     public Transform cameraTransform;
@@ -22,6 +25,10 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         inputManager = FindObjectOfType<InputManager>();
+
+        buttonLogic = FindObjectOfType<ButtonLogic>();
+        CutsceneCam = GameObject.Find("CutsceneCam");
+        CutsceneCam.SetActive(false);
     }
 
     void FixedUpdate()
@@ -34,6 +41,8 @@ public class PlayerController : MonoBehaviour
         HandlePlayerRotation();
         HandlePlayerMovement();
         HandleJump();
+        HandleSelect();
+        HandleAttack();
     }
 
     void HandlePlayerRotation()
@@ -98,6 +107,36 @@ public class PlayerController : MonoBehaviour
 
     //Kinda Works - is bad
     //playerRB.AddForce(movementVelocity + new Vector3(moveDirection.x, moveDirection.y, moveDirection.z));
+
+    private void HandleSelect()
+    {
+        if (inputManager.selectInput && buttonLogic.btnPressable)
+        {
+            CutsceneCam.SetActive(true);
+            buttonLogic.DoorOpen();
+            inputManager.selectInput = false;
+        }
+
+        else if (!buttonLogic.btnPressable) 
+        {
+            CutsceneCam.SetActive(false);        
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if (inputManager.attackInput)
+        {
+            //animator.Play("Base Layer.MMA Kick", 0, 0.25f);
+        }
+
+        else
+        {
+            //animator.SetBool("IsFighting", false);
+        }
+    }
+
+
 
     private void HandleJump()
     {
