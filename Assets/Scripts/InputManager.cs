@@ -6,6 +6,8 @@ public class InputManager : MonoBehaviour
 {
     PlayerControlsScript playerControlsScript;
 
+    Animator animator;
+
     public Vector2 leftStickInput;
     public Vector2 rightStickInput;
 
@@ -20,6 +22,11 @@ public class InputManager : MonoBehaviour
     public bool sprintInput = false;
     public bool selectInput = false;
     public bool attackInput = false;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -36,6 +43,17 @@ public class InputManager : MonoBehaviour
     {
         movementInputX = leftStickInput.x;
         movementInputY = leftStickInput.y;
+        
+        if (movementInputX != 0 || movementInputY != 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+
     }
 
     private void HandleCameraInput()

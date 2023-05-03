@@ -63,11 +63,6 @@ public class CameraController : MonoBehaviour
             cameraPivot.localRotation = Quaternion.Euler(Vector3.zero);
         }
 
-/*        else if (//cutscene)
-        {
-
-        }*/
-
         else
         {
             FollowTarget();
@@ -129,7 +124,7 @@ public class CameraController : MonoBehaviour
 
     private void LockOnCamRules()
     {
-        Vector3 lookAtPosition = lockOnTargetTransform.position + transform.up * 1.8f;
+        Vector3 lookAtPosition = lockOnTargetTransform.position + transform.up * -2f;
         var targetRotation = Quaternion.LookRotation(lookAtPosition - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5 * Time.deltaTime);
     }

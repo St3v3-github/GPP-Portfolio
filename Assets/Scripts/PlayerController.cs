@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     InputManager inputManager;
     ButtonLogic buttonLogic;
+    Animator animator;
 
     public GameObject CutsceneCam;
 
@@ -21,28 +22,35 @@ public class PlayerController : MonoBehaviour
 
     public float jump = 10f;
     public bool onGround = true;
+    public int jumps = 0;
 
     public void Awake()
     {
         inputManager = FindObjectOfType<InputManager>();
+
+        animator = GetComponent<Animator>();
 
         buttonLogic = FindObjectOfType<ButtonLogic>();
         CutsceneCam = GameObject.Find("CutsceneCam");
         CutsceneCam.SetActive(false);
     }
 
+    private void Update()
+    {
+        HandleJump();
+        HandleSelect();
+        HandleAttack();
+    }
+
     void FixedUpdate()
     {
         HandleAllPlayerMovement();
     }
-   
+
     void HandleAllPlayerMovement()
     {
         HandlePlayerRotation();
         HandlePlayerMovement();
-        HandleJump();
-        HandleSelect();
-        HandleAttack();
     }
 
     void HandlePlayerRotation()
@@ -82,7 +90,6 @@ public class PlayerController : MonoBehaviour
         Vector3 CRM = FRVI + RRVI;
 
         transform.Translate(CRM * runSpeed * Time.fixedDeltaTime);
-
     }
 
     /*        moveDirection = cameraTransform.forward * inputManager.movementInputY;
@@ -102,7 +109,6 @@ public class PlayerController : MonoBehaviour
             Vector3 movementVelocity = moveDirection;
             playerRB.MovePosition(transform.position + new Vector3(moveDirection.x, moveDirection.y, moveDirection.z) * Time.deltaTime);
         }*/
-
     //transform.Translate(moveDirection + new Vector3(moveDirection.x, moveDirection.y, moveDirection.z).normalized * runSpeed * Time.deltaTime, Space.World);
 
     //Kinda Works - is bad
@@ -117,9 +123,9 @@ public class PlayerController : MonoBehaviour
             inputManager.selectInput = false;
         }
 
-        else if (!buttonLogic.btnPressable) 
+        else if (!buttonLogic.btnPressable)
         {
-            CutsceneCam.SetActive(false);        
+            CutsceneCam.SetActive(false);
         }
     }
 
@@ -127,31 +133,42 @@ public class PlayerController : MonoBehaviour
     {
         if (inputManager.attackInput)
         {
-            //animator.Play("Base Layer.MMA Kick", 0, 0.25f);
-        }
-
-        else
-        {
-            //animator.SetBool("IsFighting", false);
+            animator.Play("Base Layer.MMAKick", 0, 0.25f);
         }
     }
-
-
 
     private void HandleJump()
     {
         if (inputManager.jumpInput && onGround)
         {
+            inputManager.jumpInput = false;
+            animator.Play("Base Layer.JumpFlip", 0, 0.25f);
             playerRB.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
-            onGround = false;
         }
+
+/*        if (powerup.aquired == true)
+        {*/
+            if (inputManager.jumpInput && jumps == 1)
+            {
+                animator.Play("Base Layer.JumpFlip", 0, 0.25f);
+                playerRB.AddForce(new Vector3(0, jump / 1.5f, 0), ForceMode.Impulse);
+                jumps++;
+            }
+/*        }*/
     }
 
-    private void OnCollisionEnter(Collision collision)
+        private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
+            animator.SetBool("isJumping", false);
             onGround = true;
+            jumps = 0;
         }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        onGround = false;
+        jumps++;
     }
 }

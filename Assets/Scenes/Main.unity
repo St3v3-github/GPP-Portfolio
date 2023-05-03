@@ -1856,6 +1856,7 @@ MonoBehaviour:
   rotationSpeed: 5
   jump: 5
   onGround: 1
+  jumps: 0
 --- !u!114 &1072088927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1878,7 +1879,7 @@ MonoBehaviour:
   attackRange: 2
   InAttackRange: 0
   bonkUp: 2
-  bonkBack: 5
+  bonkBack: -5
   enemyHealth: 50
   enemyObject: {fileID: 2130372158}
 --- !u!1 &1137500484

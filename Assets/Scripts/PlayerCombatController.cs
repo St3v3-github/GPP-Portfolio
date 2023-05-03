@@ -12,7 +12,6 @@ public class PlayerCombatController : MonoBehaviour
     public Rigidbody enemyRB;
 /*    public Rigidbody BossRB;*/
 
-
     [SerializeField] private LayerMask Ground, Enemy /*,Boss*/;
 
     [SerializeField] private float attackRange;
