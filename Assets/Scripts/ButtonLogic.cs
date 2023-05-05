@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class ButtonLogic : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ButtonLogic : MonoBehaviour
     public GameObject button;
     public GameObject door;
     public GameObject timeline;
+
+    public Text myText;
 
     void Awake()
     { 
@@ -30,8 +33,17 @@ private void OnTriggerEnter()
         btnPressable = true;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            myText.text = "Press X to Interact";
+        }
+    }
+
     private void OnTriggerExit()
     {
         btnPressable = false;
+        myText.text = " ";
     }
 }

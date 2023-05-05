@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    InputManager inputManager;
+
     public GameObject player;
+    public GameObject enemy;
+    public Rigidbody enemyRB;
+
     [SerializeField] Vector3 newPos, velocity;
     [SerializeField] private float speed, timer, detectionRad = 20;
     [SerializeField] private bool isMoving, playerDetected;
+
+    [SerializeField] public float attackRange;
+    [SerializeField] public bool InAttackRange;
+    [SerializeField] private float bonkUp;
+    [SerializeField] private float bonkBack;
+    [SerializeField] private float enemyHealth = 10;
 
     MeshRenderer meshRenderer;
     Color originalColour, damageColor = Color.red;
@@ -16,6 +27,8 @@ public class EnemyController : MonoBehaviour
 
     void Awake()
     {
+        inputManager = FindObjectOfType<InputManager>();
+
         newPos = transform.position;
 
         meshRenderer = GetComponent<MeshRenderer>();
@@ -25,7 +38,8 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         HandleMovement();
-        PlayerDetection();
+        HandlePlayerDetection();
+        HandleCombat();
     }
 
     private void HandleMovement()
@@ -49,7 +63,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void PlayerDetection()
+    private void HandlePlayerDetection()
     {
         // finds distance between player & enemy
         var dist = Vector3.Distance(player.transform.position, transform.position);
@@ -66,9 +80,34 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void Damage()
+    private void HandleCombat()
     {
-        StartCoroutine(EFlash());
+        if (enemyHealth < 0)
+        {
+            enemy.SetActive(false);
+        }
+
+        // finds distance between player & enemy
+        var dist = Vector3.Distance(player.transform.position, transform.position);
+
+        //checks to see if player is near enemy
+        if (dist <= attackRange)
+        {
+            InAttackRange = true;
+            if (InAttackRange && inputManager.attackInput)
+            {
+                enemyRB.AddForce(transform.up * bonkUp, ForceMode.Impulse);
+                enemyRB.AddForce(transform.forward * -bonkBack, ForceMode.Impulse);
+
+                enemyHealth--;
+                StartCoroutine(EFlash());
+            }
+
+            else
+            {
+                InAttackRange = true;
+            }
+        }
     }
 
     public IEnumerator EFlash()

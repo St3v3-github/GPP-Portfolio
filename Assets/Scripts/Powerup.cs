@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Powerup : MonoBehaviour
 {
     public float waitTime = 2f;
     public bool aquired = false;
 
+    public Text myText;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            myText.text = "Double Jump Active";
             StartCoroutine(Pickup(other));
         }
     }

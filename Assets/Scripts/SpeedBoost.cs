@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpeedBoost : MonoBehaviour
 {
     public float multiplier = 2f;
     public float waitTime = 2f;
 
+    public Text myText;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            myText.text = "Speedboost Active";
             StartCoroutine(Pickup(other));
         }
     }
@@ -25,6 +29,8 @@ public class SpeedBoost : MonoBehaviour
         gameObject.transform.position = new Vector3(0, -50, 0);
 
         yield return new WaitForSeconds(waitTime);
+
+        myText.text = " ";
 
         playerController.runSpeed /= multiplier;
         //playerController.sprintSpeed /= multiplier;
