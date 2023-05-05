@@ -6,9 +6,10 @@ public class EnemyController : MonoBehaviour
 {
     InputManager inputManager;
 
-    public GameObject player;
-    public GameObject enemy;
     public Rigidbody enemyRB;
+    public GameObject enemy;
+    public GameObject player;
+    public GameObject particles;
 
     [SerializeField] Vector3 newPos, velocity;
     [SerializeField] private float speed, timer, detectionRad = 20;
@@ -84,7 +85,7 @@ public class EnemyController : MonoBehaviour
     {
         if (enemyHealth < 0)
         {
-            enemy.SetActive(false);
+            Destroy(enemy);
         }
 
         // finds distance between player & enemy
@@ -115,5 +116,10 @@ public class EnemyController : MonoBehaviour
         meshRenderer.material.color = damageColor;
         yield return new WaitForSeconds(flashTime);
         meshRenderer.material.color = originalColour;
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(particles, transform.position, Quaternion.identity);
     }
 }

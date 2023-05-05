@@ -3736,7 +3736,7 @@ GameObject:
   - component: {fileID: 1935473833}
   - component: {fileID: 1935473834}
   m_Layer: 0
-  m_Name: Target Cube
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3775,7 +3775,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07876f4db1f23224d8c69afdfa579738, type: 2}
+  - {fileID: 2100000, guid: b7271ba794c11ab49a0a1922964d6905, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3848,9 +3848,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86393a6300e6074991e6164b50aca08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1072088911}
-  enemy: {fileID: 1935473828}
   enemyRB: {fileID: 1935473833}
+  enemy: {fileID: 1935473828}
+  player: {fileID: 1072088911}
+  particles: {fileID: 5059986545540013117, guid: 1dff988cd1d412440a3ed63828d939bc, type: 3}
   newPos: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 5
@@ -4556,7 +4557,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
+  - {fileID: 2100000, guid: b7271ba794c11ab49a0a1922964d6905, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4629,9 +4630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86393a6300e6074991e6164b50aca08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1072088911}
-  enemy: {fileID: 2130372158}
   enemyRB: {fileID: 2130372163}
+  enemy: {fileID: 2130372158}
+  player: {fileID: 1072088911}
+  particles: {fileID: 5059986545540013117, guid: 1dff988cd1d412440a3ed63828d939bc, type: 3}
   newPos: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 8
