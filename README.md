@@ -1,6 +1,7 @@
 Here is the readme for my GPP Portfolio
 Hope you like it
 
+```
 //Controls
     Gamepad:
     >Move: Left Stick
@@ -9,3 +10,4 @@ Hope you like it
     >Interact: X
     >Attack: B
     >Lock On Cam: Left Bumper 
+```
