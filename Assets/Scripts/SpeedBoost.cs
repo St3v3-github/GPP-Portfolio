@@ -12,7 +12,7 @@ public class SpeedBoost : MonoBehaviour
     public Text myText;
 
     public GameObject Player;
-    //public ParticleSystem particles;
+    public ParticleSystem particles;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,9 +31,15 @@ public class SpeedBoost : MonoBehaviour
 
         gameObject.transform.position = new Vector3(0, -50, 0);
 
+        var particleInstance = Instantiate(particles, Player.transform.position, Quaternion.identity);
+        particleInstance.transform.SetParent(Player.transform);
+
         yield return new WaitForSeconds(waitTime);
 
         myText.text = " ";
+
+        particleInstance.Stop();
+        Destroy(particleInstance);
 
         playerController.runSpeed /= multiplier;
         //playerController.sprintSpeed /= multiplier;

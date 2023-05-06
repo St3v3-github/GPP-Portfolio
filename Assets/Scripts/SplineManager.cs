@@ -23,6 +23,9 @@ public class SplineManager : MonoBehaviour
 
     public bool InBox = false;
 
+    public float delayTime = 2f; // delay time in seconds
+    public bool canEnter = true;
+
 
     void Awake()
     {
@@ -78,7 +81,7 @@ public class SplineManager : MonoBehaviour
     //Player detection + enable/disable spline cam
     private void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && canEnter)
         {
             InBox = true;
         }
@@ -89,6 +92,15 @@ public class SplineManager : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             InBox = false;
+            canEnter= false;
+            StartCoroutine(ResetCanEnter());
         }
     }
+
+    private IEnumerator ResetCanEnter()
+    {
+        yield return new WaitForSeconds(delayTime);
+        canEnter = true;
+    }
+
 }

@@ -188,6 +188,8 @@ MonoBehaviour:
   pointD: {fileID: 1007666727}
   pointSplineCam: {fileID: 1010955724}
   InBox: 0
+  delayTime: 2
+  canEnter: 1
 --- !u!1 &15377558
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +395,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c181c23a6120fbe4aadd5bb53a58dd78, type: 2}
+  - {fileID: 2100000, guid: 5a26de236ce89e94b963be8fa2b7ade6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1588,11 +1590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd49e7a798cd221409d06dd51ca7001a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1.5
-  waitTime: 30
+  multiplier: 1.75
+  waitTime: 15
   myText: {fileID: 934299827}
   Player: {fileID: 1072088911}
-  particles: {fileID: 6469354921825657977, guid: b3967a93bca495749807cf6200379ca2, type: 3}
+  particles: {fileID: 6469354921825657977, guid: b39dcf4985d11304dbff6a2c10ab956b, type: 3}
 --- !u!135 &665395801
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1873,9 +1875,9 @@ RectTransform:
   m_Father: {fileID: 304789106}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 455, y: -42}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 2, y: -33}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820284058
@@ -1900,11 +1902,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 44
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1953,9 +1955,9 @@ RectTransform:
   m_Father: {fileID: 304789106}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -347, y: 134.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 108, y: -87}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934299827
@@ -1980,11 +1982,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3144,11 +3146,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3901,7 +3903,7 @@ MonoBehaviour:
   InAttackRange: 0
   bonkUp: 1
   bonkBack: 1
-  enemyHealth: 10
+  enemyHealth: 50
   flashTime: 0.35
 --- !u!1001 &2048625890
 PrefabInstance:
@@ -4683,5 +4685,5 @@ MonoBehaviour:
   InAttackRange: 0
   bonkUp: 1
   bonkBack: 1
-  enemyHealth: 10
+  enemyHealth: 25
   flashTime: 0.35
