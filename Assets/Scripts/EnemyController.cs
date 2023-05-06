@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     public Rigidbody enemyRB;
     public GameObject enemy;
     public GameObject player;
-    public GameObject particles;
+    public ParticleSystem particles;
 
     [SerializeField] Vector3 newPos, velocity;
     [SerializeField] private float speed, timer, detectionRad = 20;
@@ -85,6 +85,7 @@ public class EnemyController : MonoBehaviour
     {
         if (enemyHealth < 0)
         {
+            Instantiate(particles, transform.position, Quaternion.identity);
             Destroy(enemy);
         }
 
@@ -116,10 +117,5 @@ public class EnemyController : MonoBehaviour
         meshRenderer.material.color = damageColor;
         yield return new WaitForSeconds(flashTime);
         meshRenderer.material.color = originalColour;
-    }
-
-    private void OnDestroy()
-    {
-        Instantiate(particles, transform.position, Quaternion.identity);
     }
 }

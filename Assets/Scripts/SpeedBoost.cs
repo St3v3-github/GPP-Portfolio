@@ -11,6 +11,9 @@ public class SpeedBoost : MonoBehaviour
 
     public Text myText;
 
+    public GameObject Player;
+    //public ParticleSystem particles;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

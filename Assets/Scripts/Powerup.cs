@@ -10,11 +10,17 @@ public class Powerup : MonoBehaviour
 
     public Text myText;
 
+    public GameObject Player;
+    //public ParticleSystem particles;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             myText.text = "Double Jump Active";
+            /*Instantiate(particles, Player.transform.position, Quaternion.identity);
+            particles.transform.parent = Player.transform;*/
+
             StartCoroutine(Pickup(other));
         }
     }
